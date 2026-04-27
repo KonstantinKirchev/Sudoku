@@ -1,7 +1,11 @@
 <main class="main">
   <div class="content">
     <h1>{{title()}}</h1>
+    @if(store.status() === GameStatus.SOLVED) {
+        <app-winner/>
+    }
     <app-difficulty-selector (onChangeDifficulty)="sudokuBoard().loadNewGame()"/>
+    <app-multiplayer/>
     <app-status/>
     <app-sudoku-board/>
   </div>

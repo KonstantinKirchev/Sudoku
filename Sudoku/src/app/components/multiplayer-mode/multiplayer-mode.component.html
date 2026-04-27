@@ -1,0 +1,12 @@
+<div class="multiplayer-panel">
+  <label class="multiplayer-toggle">
+    <input class="form-check-input" type="checkbox" name="multiplayer" [(ngModel)]="store.multiplayer" />
+    Multiplayer mode
+  </label>
+  @if(this.store.multiplayer()) {
+    <div class="multiplayer-info">
+        <p>Current turn: Player {{ store.activePlayer() }}</p>
+        <p>Score: {{ store.moveCounts().player1 }} - {{ store.moveCounts().player2 }}</p>
+    </div>
+  }
+</div>

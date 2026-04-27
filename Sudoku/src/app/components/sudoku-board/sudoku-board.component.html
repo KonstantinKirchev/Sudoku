@@ -5,6 +5,8 @@
             <input type="string" [value]="cell === 0 ? '' : cell"
                 [readonly]="store.initialBoard()[rowIndex][colIndex] !== 0"
                 [class.pre-filled]="store.initialBoard()[rowIndex][colIndex] !== 0"
+                [class.player-1]="cellOwners[rowIndex][colIndex] === 1"
+                [class.player-2]="cellOwners[rowIndex][colIndex] === 2"
                 (input)="onInputChange(rowIndex, colIndex, $event)" min="1" max="9" />
             }
         </div>
