@@ -1,0 +1,35 @@
+form {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+label {
+  display: grid; 
+  align-items: center;
+}
+
+select {
+  appearance: base-select;
+  color: #71717a;
+  background-color: transparent;
+  width: 180px;
+  box-sizing: border-box;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e4e4e7;
+  border-radius: calc(0.5rem - 2px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.action {
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+}
+
+.start {
+  background-color: var(--gray-700);
+}

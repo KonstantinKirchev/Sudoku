@@ -1,0 +1,75 @@
+.grid-container {
+  display: grid;
+  border: 2px solid black;
+}
+
+input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.action {
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+}
+
+.validate {
+  background-color: blue;
+}
+
+.solve {
+  background-color: green;
+}
+
+.reset {
+  background-color: red;
+}
+
+.start {
+  background-color: var(--gray-700);
+}
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+  input {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  input {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  input {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+@media screen and (max-width: 327px) {
+  input {
+    width: 21px;
+    height: 21px;
+  }
+}

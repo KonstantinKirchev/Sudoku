@@ -1,0 +1,10 @@
+<div 
+    class="status" 
+    [ngClass]="{'solved':  store.status()===GameStatus.SOLVED, 
+    'broken':  store.status()===GameStatus.BROKEN,
+    'playing':  store.status()===GameStatus.PLAYING,
+    'unsolved':  store.status()===GameStatus.UNSOLVED,
+    'unsolvable':  store.status()===GameStatus.UNSOLVABLE,
+    'loading':  store.status()===GameStatus.LOADING}">
+    Status: {{store.status()}}
+</div>

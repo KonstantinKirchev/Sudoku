@@ -1,0 +1,17 @@
+<div class="grid-container">
+    @for (row of store.board(); let rowIndex = $index; track rowIndex;) {
+        <div class="row">
+            @for (cell of row; let colIndex = $index; track colIndex;) {
+            <input type="string" [value]="cell === 0 ? '' : cell"
+                [readonly]="store.initialBoard()[rowIndex][colIndex] !== 0"
+                [class.pre-filled]="store.initialBoard()[rowIndex][colIndex] !== 0"
+                (input)="onInputChange(rowIndex, colIndex, $event)" min="1" max="9" />
+            }
+        </div>
+    }
+</div>
+<div class="actions">
+    <button class="action validate" (click)="validate()">Validate</button>
+    <button class="action solve" (click)="solve()">Solve</button>
+    <button class="action reset" (click)="loadNewGame()">Reset</button>
+</div>

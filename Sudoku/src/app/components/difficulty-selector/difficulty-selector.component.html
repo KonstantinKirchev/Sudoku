@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()"> 
+    <label for="difficulty">Difficulty</label>
+    <select id="difficulty" name="difficulty" [(ngModel)]="store.difficulty">
+        <option [value]="Level.RANDOM">Random</option>
+        <option [value]="Level.EASY">Easy</option>
+        <option [value]="Level.MEDIUM">Medium</option>
+        <option [value]="Level.HARD">Hard</option>
+    </select>
+    <button class="action start" type="submit">Start</button>
+</form>

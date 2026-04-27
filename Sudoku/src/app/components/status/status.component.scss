@@ -1,0 +1,25 @@
+.status {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+
+  &.loading {
+    background-color: var(--bright-blue);
+  }
+
+  &.playing {
+    background-color: var(--electric-violet);
+  }
+
+  &.broken {
+    background-color: var(--hot-red);
+  }
+
+  &.solved {
+    background-color: var(--french-violet);
+  }
+
+  &.unsolved, &.unsolvable {
+    background-color: var(--orange-red);
+  }
+}
