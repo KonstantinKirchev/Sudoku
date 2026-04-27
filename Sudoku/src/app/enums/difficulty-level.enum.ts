@@ -1,0 +1,6 @@
+export enum Level {
+    EASY = 'easy',
+    MEDIUM = 'medium',
+    HARD = 'hard',
+    RANDOM = 'random'
+}
