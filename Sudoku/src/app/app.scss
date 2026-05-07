@@ -73,6 +73,16 @@ main {
   margin-top: 1.5rem;
 }
 
+.action {
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--french-violet);
+  margin-bottom: 1.5rem;
+}
+
 @media screen and (max-width: 650px) {
   .content {
     flex-direction: column;

@@ -6,11 +6,10 @@ import { StatusComponent } from "./components/status/status.component";
 import { SudokuStore } from './stores/sudoku.store';
 import { GameStatus } from './enums/game-status.enum';
 import { MultiPlayerComponent } from "./components/multiplayer-mode/multiplayer-mode.component";
-import { WinnerComponent } from "./components/winner/winner.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SudokuBoardComponent, DifficultySelectorComponent, StatusComponent, MultiPlayerComponent, WinnerComponent],
+  imports: [RouterOutlet, SudokuBoardComponent, DifficultySelectorComponent, StatusComponent, MultiPlayerComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
