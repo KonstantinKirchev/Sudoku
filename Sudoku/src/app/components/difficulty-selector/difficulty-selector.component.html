@@ -1,6 +1,6 @@
-<form (ngSubmit)="onSubmit()"> 
+<form [formGroup]="form" (ngSubmit)="onSubmit()"> 
     <label for="difficulty">Difficulty</label>
-    <select id="difficulty" name="difficulty" [(ngModel)]="store.difficulty">
+    <select id="difficulty" name="difficulty" formControlName="difficulty">
         <option [value]="Level.RANDOM">Random</option>
         <option [value]="Level.EASY">Easy</option>
         <option [value]="Level.MEDIUM">Medium</option>

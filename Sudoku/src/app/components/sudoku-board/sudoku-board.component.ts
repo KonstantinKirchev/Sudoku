@@ -5,6 +5,7 @@ import { SudokuApiService } from '../../services/sudoku.service';
 import { Subscription } from 'rxjs';
 import { PlayerId } from '../../models/player-id.model';
 import { GameStatus } from '../../enums/game-status.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sudoku-board',
@@ -19,6 +20,7 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
   public cellOwners: PlayerId[][] = [];
   private subscriptions: Subscription[] = [];
   private previousMultiplayerState?: boolean;
+  private router: Router = inject(Router);
 
   constructor() {
     effect(() => {
@@ -40,16 +42,17 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
   }
 
   async loadNewGame(): Promise<void> {
-    this.store.status.set(GameStatus.LOADING);
+    this.store.updateGameStatus(GameStatus.LOADING);
     this.subscriptions.push(
       this.apiService.getBoard(this.store.difficulty()).subscribe({
         next: (res) => {
           this.store.setBoard(res.board, true);
           this.cellOwners = this.createEmptyOwnerGrid(res.board);
           this.resetTurnState();
-          this.store.status.set(GameStatus.PLAYING);
+          this.store.updateGameStatus(GameStatus.PLAYING);
+          this.router.navigate(['/']);
         },
-        error: () => this.store.status.set(GameStatus.BROKEN)
+        error: () => this.store.updateGameStatus(GameStatus.BROKEN)
       })
     );
   }
@@ -62,7 +65,7 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
       this.store.updateCell(row, col, value);
       this.updateOwner(row, col, this.store.multiplayer() ? this.store.activePlayer() : 0);
       if (this.store.multiplayer()) {
-        this.store.activePlayer.set(this.store.activePlayer() === 1 ? 2 : 1);
+        this.store.switchActivePlayer();
       }
     } else {
       input.value = '';
@@ -74,7 +77,12 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
   public validate(): void {
     this.subscriptions.push(
       this.apiService.validateBoard(this.store.board()).subscribe((res) => {
-        this.store.status.set(res.status);
+        this.store.updateGameStatus(res.status);
+        if (res.status === GameStatus.SOLVED) {
+          this.router.navigate(['/winner']);
+        } else {
+          this.router.navigate(['/']);
+        }
       })
     );
   }
@@ -82,10 +90,10 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
   public solve(): void {
     this.subscriptions.push(
       this.apiService.solveBoard(this.store.board()).subscribe((res) => {
-        this.store.status.set(res.status);
+        this.store.updateGameStatus(res.status);
         if (res.status === GameStatus.SOLVED) {
           this.store.setBoard(res.solution);
-          this.store.status.set(res.status);
+          this.router.navigate(['/winner']);
         }
       })
     );
@@ -100,8 +108,8 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
   }
 
   private resetTurnState(): void {
-    this.store.activePlayer.set(1);
-    this.store.moveCounts.set({ player1: 0, player2: 0 });
+    this.store.updateActivePlayer(1);
+    this.store.resetMoveCounts();
   }
 
   private updateOwner(row: number, col: number, player: PlayerId): void {
@@ -109,21 +117,18 @@ export class SudokuBoardComponent implements OnInit, OnDestroy {
     if (previousOwner === player) {
       return;
     }
-
     if (previousOwner === 1) {
-      this.store.moveCounts.update(counts => ({ ...counts, player1: counts.player1 - 1 }));
+      this.store.updateMoveCounts('player1', 'decrease');
     }
     if (previousOwner === 2) {
-      this.store.moveCounts.update(counts => ({ ...counts, player2: counts.player2 - 1 }));
+      this.store.updateMoveCounts('player2', 'decrease');
     }
-
     if (player === 1) {
-      this.store.moveCounts.update(counts => ({ ...counts, player1: counts.player1 + 1 }));
+      this.store.updateMoveCounts('player1', 'increase');
     }
     if (player === 2) {
-      this.store.moveCounts.update(counts => ({ ...counts, player2: counts.player2 + 1 }));
+      this.store.updateMoveCounts('player2', 'increase');
     }
-
     this.cellOwners[row][col] = player;
   }
 }

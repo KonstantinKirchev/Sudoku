@@ -11,4 +11,8 @@ import { SudokuStore } from "../../stores/sudoku.store";
 
 export class MultiPlayerComponent {
     protected readonly store = inject(SudokuStore);
+
+    public onMultiplayerChange(event: Event): void {
+        this.store.updateMultiplayer((event.target as HTMLInputElement).checked);
+    }
 }

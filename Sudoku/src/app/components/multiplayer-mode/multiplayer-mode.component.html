@@ -1,6 +1,6 @@
 <div class="multiplayer-panel">
   <label class="multiplayer-toggle">
-    <input class="form-check-input" type="checkbox" name="multiplayer" [(ngModel)]="store.multiplayer" />
+    <input class="form-check-input" type="checkbox" name="multiplayer" (change)="onMultiplayerChange($event)" />
     Multiplayer mode
   </label>
   @if(this.store.multiplayer()) {
